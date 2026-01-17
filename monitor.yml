@@ -1,0 +1,30 @@
+---
+- name: Linux Server Health Monitoring
+  hosts: servers
+  become: yes
+  tasks:
+
+    - name: Get uptime
+      command: uptime
+      register: uptime_output
+
+    - name: Get memory usage
+      command: free -m
+      register: memory_output
+
+    - name: Get disk usage
+      command: df -h
+      register: disk_output
+
+    - name: Display uptime
+      debug:
+        var: uptime_output.stdout
+
+    - name: Display memory usage
+      debug:
+        var: memory_output.stdout
+
+    - name: Display disk usage
+      debug:
+        var: disk_output.stdout
+
